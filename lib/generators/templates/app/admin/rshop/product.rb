@@ -42,6 +42,7 @@ ActiveAdmin.register Rshop::Product do
   end
 
   index do
+    selectable_column
     column :name, sortable: :name do |o|
       "#{o.name}"
     end

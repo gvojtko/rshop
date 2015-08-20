@@ -4,4 +4,8 @@ class Rshop::Address < ActiveRecord::Base
   attr_accessor :validate_saving
 
   validates :phone, :address, presence: true, if: :validate_saving
+
+  def validate_saving?
+    !!@validate_saving
+  end
 end

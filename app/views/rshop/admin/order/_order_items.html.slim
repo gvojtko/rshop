@@ -1,0 +1,7 @@
+ul
+  - order_items.each do |order_item|
+    - product = order_item.product
+    li
+      a href=admin_rshop_product_path(product)
+      | #{product.name}
+      | &nbsp; #{number_to_currency(product.price)}  x #{order_item.qty} = #{number_to_currency(order_item.cost)}

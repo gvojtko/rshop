@@ -39,7 +39,7 @@ class Rshop::Order < ActiveRecord::Base
   end
 
   def status_title
-    Order.status_options[self.status]
+    Rshop::Order.status_options[self.status]
   end
 
   def self.status_options

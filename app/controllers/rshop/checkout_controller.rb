@@ -8,19 +8,11 @@ class Rshop::CheckoutController < ApplicationController
   end
 
   def save
-    order_params = address_params
+    @cart.attributes = address_params
 
-    if @cart.address.valid_phone?
-      @cart.payment_id = order_params[:payment_id]
-      @cart.delivery_id = order_params[:delivery_id]
-      @cart.comments = order_params[:comments]
-    else
-      @cart.attributes = address_params
-    end
-
-    @cart.status = Order::STATUS_IN_Q
+    @cart.status = Rshop::Order::STATUS_IN_Q
     @cart.validate_saving
-    if @cart.save
+    if @cart.save!
       sold_counter @cart
       OrderMailer.new_order(@cart).deliver
       set_cart_id nil
@@ -37,7 +29,7 @@ class Rshop::CheckoutController < ApplicationController
   def ty
     if session[:last_cart_id].present?
       # use @order to track it in google analytics
-      @order = Order.find session[:last_cart_id]
+      @order = Rshop::Order.find session[:last_cart_id]
       session[:last_cart_id] = nil
     end
   end
@@ -55,10 +47,9 @@ class Rshop::CheckoutController < ApplicationController
   end
 
   def merge_address user, address
-    user.address.phone = address.phone if user.address.phone.nil? || user.address.phone == ''
-    user.address.address = address.address if user.address.address.nil? || user.address.address == ''
-    user.address.username = address.username if user.address.username.nil? || user.address.username == ''
-    user.address.email = address.address if user.address.email.nil? || user.address.email == ''
+    [:phone, :address, :username, :email].each do |attr|
+      user.address.send("#{attr}=", address.send(attr)) unless user.address.send(attr).present?
+    end
 
     user.save
   end
@@ -68,11 +59,11 @@ class Rshop::CheckoutController < ApplicationController
   end
 
   def address_params
-    params.require(:order)
+    params.require(:rshop_order)
     .permit(
-        :payment_id, :delivery_id, :comments,
+        :rshop_payment_id, :rshop_delivery_id, :comments,
         address_attributes: [
-        :phone, :address, :username, :email
-    ])
+            :phone, :address, :username, :email
+        ])
   end
 end

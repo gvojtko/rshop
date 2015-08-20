@@ -1,0 +1,33 @@
+h4
+  = link_to "Заказ № #{@order.id}", admin_rshop_order_path(@order)
+
+h4 Товары
+= render 'rshop/admin/order/order_items', order_items: @order.order_items
+
+h4 О заказе
+ul
+  li Способ оплаты: #{@order.delivery.name}
+  li Способ доставки: #{@order.payment.name}
+  li Комментарии к заказу: #{@order.comments}
+
+h4 Пользователь
+ul
+  - if @order.user.present?
+    - user = @order.user
+    li
+      b id: #{user.id}
+    li Имя: #{user.try(:full_name)}
+    li email: #{user.email}
+
+  - else
+    li
+      b Гость
+    - if @order.address.username.present?
+      li Имя: #{@order.address.username}
+
+h4 Адрес
+ul
+  - @order.user.present?
+    li email: #{@order.user.email}
+
+= render 'rshop/admin/order/address', address: @order.address

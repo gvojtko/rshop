@@ -1,7 +1,7 @@
 p.text-center
-  | #{{db_partial(:checkout_ty)}}
+  | Спасибо за покупку
 
-- if @order && false
+/- if @order && false
   script type="text/javascript"
     | ga('ecommerce:addTransaction', {
         'id': '#{@order.id}',                     // Transaction ID. Required.
@@ -10,7 +10,6 @@ p.text-center
         'shipping': '0',                  // Shipping.
         'tax': '0'                     // Tax.
       });
-
     - @order.order_items.each do |item|
       | ga('ecommerce:addItem', {
           'id': '#{@order.id}',                     // Transaction ID. Required.
@@ -20,5 +19,4 @@ p.text-center
           'price': '#{item.product.price}',                 // Unit price.
           'quantity': '#{item.qty}'                   // Quantity.
         });
-
     | ga('ecommerce:send');

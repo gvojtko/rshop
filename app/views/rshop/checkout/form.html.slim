@@ -17,10 +17,10 @@
         .clearfix
         .social
           span Ввійти через:
-          a.btn.btn-primary.btn-sm.m-r-10 href=user_omniauth_authorize_path(:facebook)
+          /a.btn.btn-primary.btn-sm.m-r-10 href=user_omniauth_authorize_path(:facebook)
             | Facebook
             i.fa.fa-facebook.r
-          a.btn.btn-primary.btn-sm href=user_omniauth_authorize_path(:vkontakte)
+          /a.btn.btn-primary.btn-sm href=user_omniauth_authorize_path(:vkontakte)
             | Вконтакте
             i.fa.fa-vk.r
         .clearfix
@@ -54,9 +54,9 @@
         = simple_form_for @cart, url: checkout_save_path, id: 'checkout-full-form', html: { class: 's-form edit_order'} do |f|
           .col-xs-12.col-lg-6
             = f.simple_fields_for :address, @cart.address do |af|
-              = render 'users/profile/address_form', f: af
+              = render 'rshop/address/address_form', f: af
           .col-xs-12.col-lg-6
-            = render 'checkout/form_fields', f: f
+            = render 'rshop/checkout/form_fields', f: f
 
           .clearfix
           hr.visible-lg
@@ -69,9 +69,9 @@
     = simple_form_for @cart, url: checkout_save_path, id: 'checkout-full-form', html: { class: 's-form edit_order'} do |f|
       .col-xs-12.col-sm-6
         = f.simple_fields_for :address, @cart.address do |af|
-          = render 'users/profile/address_form', f: af
+          = render 'rshop/address/address_form', f: af
       .col-xs-12.col-sm-6
-        = render 'checkout/form_fields', f: f
+        = render 'rshop/checkout/form_fields', f: f
 
       .clearfix
       hr.hidden-xs

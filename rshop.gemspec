@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name          = "rshop"
   spec.version       = Rshop::VERSION
   spec.authors       = ["ruslan.palagin"]
-  spec.email         = ["ruslan.palagin@masterofcode.com"]
+  spec.email         = ["ruslan.palagin.ck@gmail.com"]
 
   spec.summary       = %q{Simple ecommerce application gem}
   spec.description   = %q{Later}

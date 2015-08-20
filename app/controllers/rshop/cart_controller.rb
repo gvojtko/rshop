@@ -13,7 +13,7 @@ class Rshop::CartController < ::ApplicationController
     @cart.save!
     cart_counter product, qty
 
-    redirect_to permalink_path(product), flash: { success: "Товар \"#{product.name}\" (#{qty}шт.) був доданий в корзину" }
+    redirect_to root_path, flash: { success: "Товар \"#{product.name}\" (#{qty}шт.) був доданий в корзину" }
   end
 
   def delete_item
