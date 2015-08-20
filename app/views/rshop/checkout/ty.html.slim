@@ -1,0 +1,24 @@
+p.text-center
+  | #{{db_partial(:checkout_ty)}}
+
+- if @order && false
+  script type="text/javascript"
+    | ga('ecommerce:addTransaction', {
+        'id': '#{@order.id}',                     // Transaction ID. Required.
+        'affiliation': 'Добра фігура',   // Affiliation or store name.
+        'revenue': '#{@order.cost}',               // Grand Total.
+        'shipping': '0',                  // Shipping.
+        'tax': '0'                     // Tax.
+      });
+
+    - @order.order_items.each do |item|
+      | ga('ecommerce:addItem', {
+          'id': '#{@order.id}',                     // Transaction ID. Required.
+          'name': '#{item.product.name}',    // Product name. Required.
+          'sku': '#{item.product.code}',                 // SKU/code.
+          'category': '#{item.product.category.name}',         // Category or variation.
+          'price': '#{item.product.price}',                 // Unit price.
+          'quantity': '#{item.qty}'                   // Quantity.
+        });
+
+    | ga('ecommerce:send');

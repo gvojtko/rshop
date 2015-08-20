@@ -1,0 +1,115 @@
+script
+  | ga('send', 'event', 'Interface', 'product-show-action');
+
+.product-show itemscope="" itemtype="http://schema.org/Product"
+  .row
+    .col-xs-12.col-sm-4
+      .album.m-t-15
+        - if @product.album.has_images?
+          a href=@product.album.images[0].url(:origin) rel="nofollow" data-lightbox="product-show"
+            img.img-responsive src=@product.album.images[0].url(:list) alt=@product.name itemprop="image"
+          .clearfix
+          - if @product.album.images.count > 1
+            .thumbs
+              - @product.album.images.each_with_index do |i, index|
+                - if index != 0
+                  .col-xs-6.col-sm-4.row
+                    a href=i.image.url data-lightbox="product-show"
+                      img.img-responsive src=i.image.url(:gallery) alt=@product.name
+        - else
+          a rel="nofollow"
+            img.img-responsive src=@product.image_url alt=@product.name
+      .clearfix
+      /.form-group
+        - partial = db_partial(:product_show_left)
+        - if partial.exists?
+          | #{{ partial }}
+      .clearfix
+
+    .col-xs-12.col-sm-8
+      .desc
+        - if @product.is_promotion
+          .promotions
+            span.badge
+              | акція
+        = form_tag cart_items_path do
+
+          = hidden_field_tag(:product_id, @product.id)
+
+          h2 itemprop="name"
+            | #{@product.name}
+
+          .price itemprop="offers" itemscope="" itemtype="http://schema.org/Offer"
+            link itemprop="availability" content="in_stock"
+            span.value
+              meta itemprop="priceCurrency" content="UAH"
+              span itemprop="price" #{number_to_currency(@product.price)}
+              | грн
+
+          .qty
+            input type="number" class="form-control" value="1" name="qty" min="1" max="100"
+            | шт.
+            button.btn.btn-primary
+              i.fa.fa-shopping-cart
+              | В КОРЗИНУ
+          .clearfix
+          .m-t-15
+            .pull-left
+              - if @product.brand
+                div itemprop="brand" itemscope="" itemtype="http://schema.org/Organization"
+                  | Виробник:&nbsp;
+                  a href=permalink_path(@product.brand) itemprop="name" #{@product.brand.name}
+            /.pull-right
+              = render 'tags/category_list', tags: @product.tags, show: true
+          .clearfix
+          p.text.m-t-15 itemprop="description" #{raw @product.description}
+      .clearfix
+
+      hr
+      /.product-comments-list ri-collapse=""
+        h3.h4
+          | Відгуки
+          small
+            |&nbsp;(про #{@product.name}):
+        .form-group ri-collapse-btn=""
+          button.btn.btn-success type="button"  Залишити відгук
+        = simple_form_for @comment ? @comment : Comment.new, url: comments_path(@product) do |f|
+          .row ri-collapse-body=""
+            - unless current_user
+              .col-xs-12.col-sm-6
+                .form-group
+                  span
+                    = f.full_error :username
+                  = f.input_field :username, class: 'form-control', placeholder: t('activerecord.attributes.comment.username') + '*'
+              .col-xs-12.col-sm-6
+                .form-group
+                  span
+                    = f.full_error :email
+                  = f.input_field :email, class: 'form-control', placeholder: t('activerecord.attributes.comment.email') + '*'
+            - else
+              .col-xs-12.form-group
+                | #{current_user.full_name}:
+            .col-xs-12
+              .form-group
+                span
+                  = f.full_error :text
+                = f.input_field :text, class: 'form-control', placeholder: t('activerecord.attributes.comment.text') + '*'
+            .col-xs-12
+              .form-group.text-center
+                button.btn.btn-success Відправити
+        .clearfix
+
+        /- @product.comments.each do |comment|
+          .product-comment-item
+            .form-group
+              span.name #{comment.get_name}
+              time #{l(comment.created_at)}
+              .clearfix
+              p.text #{comment.text}
+
+    .clearfix
+
+  span.hide itemprop="aggregateRating" itemscope="" itemtype="http://schema.org/AggregateRating"
+    meta itemprop="ratingValue" content="4,3"
+    meta itemprop="ratingCount" content="15"
+    meta itemprop="bestRating" content="5"

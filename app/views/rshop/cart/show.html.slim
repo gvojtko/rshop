@@ -1,0 +1,74 @@
+.cart-show
+  h2 Корзина
+
+  .progress
+    .progress-bar.progress-bar-info style="width: 34%"
+      | 1. Пошук товарів
+    .progress-bar.progress-bar-warning style="width: 33%"
+      | 2. Перегляд корзини
+      .pointer
+    .progress-bar.progress-bar-empty.progress-bar-striped.active style="width: 33%"
+      | 3. Оформлення замовлення
+
+  - unless @cart.nil?
+    = form_for @cart, url: cart_path, method: :patch do |f|
+      table.table
+        thead
+          tr
+            th товар
+            th вартість
+            th &nbsp;
+        tbody
+          - @cart.order_items.each do |oi|
+            = f.fields_for :order_items, oi do |oif|
+              - product = oif.object.product
+              tr.product-item
+                td
+                  .image
+                    a href=permalink_path(product)
+                      img.img-responsive src=product.image_url(:gallery)
+                  .info
+                    a href=permalink_path(product)
+                      span.name #{product.name}
+                    br
+                    /a href=permalink_path(product.brand)
+                    span.brand #{product.brand.try(:name)}
+                    br
+                    /span.category #{product.category.try(:name).downcase}
+
+                td.qty
+                  span
+                    | #{number_to_currency(product.price)} x
+                  = oif.number_field :qty, class: "form-control", min: 1, max: 100
+                  span
+                    | = #{number_to_currency(oif.object.cost)} грн.
+                td.remove-item-td
+                  a.remove-item href=cart_item_path(oi) data-method="delete"
+                    i.fa.fa-times-circle
+                    | delete
+          tr
+            td colspan="3"
+              h3.pull-right #{number_to_currency(@cart.cost)} грн.
+        tfoot
+          tr
+            td colspan="3"
+              .pull-left
+                /a href=permalink_path(@cart.order_items.last.product.category)
+                  i.fa.fa-reply
+                  | повернутися в магазин
+              .pull-right
+                button.btn.btn-primary type="submit"
+                  i.fa.fa-refresh
+                  | Зберегти зміни
+                button.btn.btn-primary.m-l-10 type="submit" name="buy_action"
+                  i.fa.fa-shopping-cart
+                  | ОФОРМИТИ ЗАМОВЛЕННЯ
+
+  - else
+    | Корзина порожня
+    br
+    br
+    br
+    .clearfix
+
+    = render 'static/propositions'
