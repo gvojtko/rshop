@@ -32,4 +32,7 @@ class RshopGenerator < Rails::Generators::Base
       copy_file "app/admin/rshop/#{name}.rb"
     end
   end
+
+  def create_locales_files
+  end
 end

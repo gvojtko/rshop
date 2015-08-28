@@ -1,8 +1,17 @@
+class DashboardHelper
+  # fix error in migration
+  def self.get_orders
+    Rshop::Order.in_q.all
+  rescue
+    []
+  end
+end
+
 ActiveAdmin.register_page "Dashboard" do
 
   menu priority: 1, label: proc{ I18n.t("active_admin.dashboard") }
 
-  orders = Rshop::Order.in_q.all
+  orders = DashboardHelper.get_orders
 
   content title: proc{ I18n.t("active_admin.dashboard") } do
     div class: "blank_slate_container", id: "dashboard_default_message" do
@@ -25,3 +34,4 @@ ActiveAdmin.register_page "Dashboard" do
     end
   end
 end
+

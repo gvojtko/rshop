@@ -32,7 +32,7 @@ Check new routes and extend existing code to match your requirements
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/rshop.
+Bug reports and pull requests are welcome on GitHub at https://github.com/r1dd1ck777/rshop.
 
 
 ## License
