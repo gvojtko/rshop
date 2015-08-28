@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class RshopAlbumImageUploader < RshopBaseImageUploader
+class ::RshopAlbumImageUploader < RshopBaseImageUploader
   version :list do
     process :resize_to_fill => [345, 345]
     process :watermark_bottom

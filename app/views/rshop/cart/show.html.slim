@@ -25,14 +25,14 @@
               tr.product-item
                 td
                   .image
-                    a href=permalink_path(product)
+                    a href=product_path(product)
                       img.img-responsive src=product.image_url(:gallery)
                   .info
-                    a href=permalink_path(product)
+                    a href=product_path(product)
                       span.name #{product.name}
                     br
-                    /a href=permalink_path(product.brand)
-                    span.brand #{product.brand.try(:name)}
+                    a href=brand_path(product.brand)
+                      span.brand #{product.brand.try(:name)}
                     br
                     /span.category #{product.category.try(:name).downcase}
 

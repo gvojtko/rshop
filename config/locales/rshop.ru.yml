@@ -1,0 +1,126 @@
+ru:
+  number:
+    currency:
+      format:
+        unit: 'грн'
+        delimiter: ' '
+        separator: '.'
+        precision: 2
+        format: '%n %u'
+
+  active_admin:
+    filters:
+      predicates:
+        eq: равно
+
+  rshop:
+    order:
+      status_1: в корзине (не заказан)
+      status_2: новый заказ
+      status_3: заказ обработан
+      status_4: отклоненный заказ
+
+  activerecord:
+    models:
+      rshop/brand:
+        one: Бренд
+        few: Брендов
+        many: Брендов
+        other: Бренды
+
+      rshop/product:
+        one: Товар
+        few: Товара
+        many: Товаров
+        other: Товары
+
+      rshop/album:
+        one: Альбом
+        few: Альбома
+        many: Альбомов
+        other: Альбома
+
+      rshop/album_image:
+        one: Изображение
+        few: Изображения
+        many: Изображений
+        other: Изображения
+
+      rshop/payment:
+        one: Способ оплаты
+        few: Способа оплаты
+        many: Способов оплаты
+        other: Способы оплаты
+
+      rshop/delivery:
+        one: Способ доставки
+        few: Способа доставки
+        many: Способов доставки
+        other: Способы доставки
+
+      rshop/order:
+        one: Заказ
+        few: Заказа
+        many: Заказов
+        other: Заказы
+
+    attributes:
+      rshop/order:
+        payment: Способ оплаты
+        delivery: Способ доставки
+        comments: Комментарии к заказу
+        status: Состояние (статус)
+        created_at: Создан
+        updated_at: Редактирован
+        cost: Стоимость товаров
+        order_items: Товары
+        address: Адрес
+        user: Пользователь
+        payment_and_delivery: Доставка
+
+      rshop/address:
+        phone: Телефон
+        address: Адрес
+        username: Имя
+        email: E-mail
+
+      rshop/brand:
+        name: Название
+        n: Приоритет
+        slug: Url-ключ
+        description: Описание
+        image: Изображение
+        remove_image: Удалить изображение
+        created_at: Создан
+        updated_at: Редактирован
+
+      rshop/product:
+        name: Название
+        n: Приоритет
+        slug: Url-ключ
+        description: Описание
+        price: Цена продажи
+        price_hint: например "200.50" (используйте точку для копеек)
+        code: Код (артикул)
+        brand: Бренд
+        album: Альбом
+        categories: Катагории
+        description_short: Краткое описание
+        is_promotion: По акции
+        is_published: Опубликован
+        in_stock: В наличии
+        created_at: Создан
+        updated_at: Редактирован
+
+      rshop/payment:
+        name: Название
+        n: Приоритет
+        created_at: Создан
+        updated_at: Редактирован
+
+      rshop/delivery:
+        name: Название
+        n: Приоритет
+        created_at: Создан
+        updated_at: Редактирован
+

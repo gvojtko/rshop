@@ -25,6 +25,9 @@ module Rshop
 
         get 'products' => 'rshop/products#all', as: :products
         get 'p-:slug' => 'rshop/products#show', as: :product
+
+        get 'brands' => 'rshop/brands#index', as: :brands
+        get 'b-:slug' => 'rshop/brands#show', as: :brand
       end
     end
   end

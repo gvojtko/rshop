@@ -81,6 +81,7 @@ class Rshop::Product < ActiveRecord::Base
 
   def init
     unless self.persisted?
+      self.in_stock = true
       self.album = Rshop::Album.new if self.album.nil?
     end
   end

@@ -1,0 +1,6 @@
+h2 Brands
+ul
+  - @brands.each do |brand|
+    li
+      a href=brand_path(brand)
+        = brand.name

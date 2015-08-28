@@ -6,10 +6,10 @@ ActiveAdmin.register Rshop::Brand do
       f.input :name
       f.input :n
       f.input :slug
-      f.inputs :description do
+      f.inputs "" do
         f.cktext_area :description, :ckeditor => {:language => 'ru'}
       end
-      f.inputs :image do
+      f.inputs "" do
         f.input :image, as: :file, :hint => f.object.image.default? ? '' : f.template.image_tag(f.object.image.url(:list))
         f.input :image_cache, as: :hidden
         f.input :remove_image, as: :boolean

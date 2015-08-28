@@ -14,14 +14,13 @@ class CreateRshopTables < ActiveRecord::Migration
 
       t.boolean :is_promotion
       t.boolean :is_published
+      t.boolean :in_stock
 
       t.integer :views_count, default: 0
       t.integer :sold_count, default: 0
       t.integer :cart_count, default: 0
       t.decimal :ctb, :precision => 6, :scale => 2, default: 0
       t.decimal :ctc, :precision => 6, :scale => 2, default: 0
-
-
 
       t.timestamps
     end

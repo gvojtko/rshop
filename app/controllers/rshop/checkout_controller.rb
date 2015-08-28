@@ -12,7 +12,7 @@ class Rshop::CheckoutController < ApplicationController
 
     @cart.status = Rshop::Order::STATUS_IN_Q
     @cart.validate_saving
-    if @cart.save!
+    if @cart.save
       sold_counter @cart
       OrderMailer.new_order(@cart).deliver
       set_cart_id nil
@@ -22,7 +22,7 @@ class Rshop::CheckoutController < ApplicationController
       redirect_to checkout_ty_path
     else
 
-      render 'checkout/form'
+      render 'rshop/checkout/form'
     end
   end
 

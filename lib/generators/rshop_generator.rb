@@ -27,6 +27,7 @@ class RshopGenerator < Rails::Generators::Base
   end
 
   def create_admin_files
+    copy_file "app/admin/dashboard.rb"
     [:product, :brand, :payment, :delivery, :order].each do |name|
       copy_file "app/admin/rshop/#{name}.rb"
     end

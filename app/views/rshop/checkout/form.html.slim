@@ -1,84 +1,65 @@
 .checkout-show
-  h2 Оформлення замовлення
+  h2 Оформление заказа
   .progress
     .progress-bar.progress-bar-info style="width: 34%"
-      | 1. Пошук товарів
+      | 1. Поиск товаров
     .progress-bar.progress-bar-warning style="width: 33%"
-      | 2. Перегляд корзини
+      | 2. Просмотр корзины
     .progress-bar.progress-bar-success.progress-bar-striped.active style="width: 33%"
-      | 3. Оформлення замовлення
+      | 3. Оформление заказа
       .pointer
 
-  - if !user_signed_in?
-    .row
-      .col-xs-12.col-sm-6.col-md-5.col-lg-4.action-variant
-        h4 Ввійти в систему
-        p Зареєстровані користувачі можуть переглядати свої замовлення та робити нові вдвічі швидше!
+  .row
+    .col-xs-12.col-sm-6.col-md-7.col-lg-8.action-variant
+      h4 Купить без регистрации
+      = simple_form_for @cart, url: checkout_save_path, id: 'checkout-full-form', html: { class: 's-form edit_order'} do |f|
+        .col-xs-12.col-lg-6
+          = f.simple_fields_for :address, @cart.address do |af|
+            .form-group
+              = af.label :phone, class: 'form-label', required: f.object.validate_saving?
+              span
+                = af.full_error :phone
+              = af.input_field :phone, class: 'form-control'
+
+          .form-group
+            = f.association :payment, required: f.object.validate_saving?, prompt: false, label_html: { class: 'form-label '}, input_html: { class: 'form-control' }
+
+          .form-group
+            = f.association :delivery, required: f.object.validate_saving?, prompt: false, label_html: { class: 'form-label '}, input_html: { class: 'form-control' }
+
+          = f.simple_fields_for :address, @cart.address do |af|
+            .form-group
+              = af.label :address, class: 'form-label', required: f.object.validate_saving?
+              span
+                = af.full_error :address
+              = af.input_field :address, class: 'form-control', as: :text
+
+        .col-xs-12.col-lg-6
+          = f.simple_fields_for :address, @cart.address do |af|
+            .form-group
+              = af.label :username, class: 'form-label'
+              span
+                = af.full_error :username
+              = af.input_field :username, class: 'form-control'
+
+            .form-group
+              = af.label :email, class: 'form-label'
+              span
+                = af.full_error :email
+              = af.input_field :email, class: 'form-control'
+          .form-group
+            = f.label :comments, class: 'form-label'
+            span
+              = f.full_error :comments
+            = f.input_field :comments, class: 'form-control'
+
         .clearfix
-        .social
-          span Ввійти через:
-          /a.btn.btn-primary.btn-sm.m-r-10 href=user_omniauth_authorize_path(:facebook)
-            | Facebook
-            i.fa.fa-facebook.r
-          /a.btn.btn-primary.btn-sm href=user_omniauth_authorize_path(:vkontakte)
-            | Вконтакте
-            i.fa.fa-vk.r
-        .clearfix
-        hr
-
-        .h5 Немає соц. аккаунта?
-        = form_tag session_path(:user), id: 'checkout-login-form' do
-          .form-group
-            = label_tag 'user[email]', 'Адреса електронної пошти', class: 'form-label'
-            = text_field_tag 'user[email]', nil, class: 'form-control'
-          .form-group
-            = label_tag 'user[password]', 'Пароль', class: 'form-label'
-            = password_field_tag 'user[password]', nil, class: 'form-control'
-          .hide
-            = check_box_tag 'user[remember_me]', nil, true
-          .form-group
-            button.btn.btn-primary.pull-right
-              | Ввійти
-              i.fa.fa-caret-right.r
-
-            a.btn.btn-2 href=new_user_registration_path
-              | Реєстрація
-              i.fa.fa-caret-right.r
-
+        hr.visible-lg
+        .form-group.text-center
+          button.btn.btn-primary.btn-lg
+            | Купить
+            i.fa.fa-caret-right
           .clearfix
 
-        hr.visible-xs
-
-      .col-xs-12.col-sm-6.col-md-7.col-lg-8.action-variant
-        h4 Купити без реєстрації
-        = simple_form_for @cart, url: checkout_save_path, id: 'checkout-full-form', html: { class: 's-form edit_order'} do |f|
-          .col-xs-12.col-lg-6
-            = f.simple_fields_for :address, @cart.address do |af|
-              = render 'rshop/address/address_form', f: af
-          .col-xs-12.col-lg-6
-            = render 'rshop/checkout/form_fields', f: f
-
-          .clearfix
-          hr.visible-lg
-          .form-group
-            button.btn.btn-primary.pull-right
-              | Купити
-              i.fa.fa-caret-right.r
-            .clearfix
-  - else
-    = simple_form_for @cart, url: checkout_save_path, id: 'checkout-full-form', html: { class: 's-form edit_order'} do |f|
-      .col-xs-12.col-sm-6
-        = f.simple_fields_for :address, @cart.address do |af|
-          = render 'rshop/address/address_form', f: af
-      .col-xs-12.col-sm-6
-        = render 'rshop/checkout/form_fields', f: f
-
-      .clearfix
-      hr.hidden-xs
-      .form-group
-        button.btn.btn-primary.pull-right
-          | Купити
-          i.fa.fa-caret-right.r
-        .clearfix
 
   .clearfix

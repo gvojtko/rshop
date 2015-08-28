@@ -5,9 +5,25 @@ ActiveAdmin.register Rshop::Order do
 
   form do |f|
     f.inputs do
-      f.input :status, as: :select, collection: Rshop::Order.status_options.invert
+      f.input :status, as: :radio, collection: Rshop::Order.status_options.invert
     end
     f.actions
+  end
+
+  index do
+    selectable_column
+    column :id
+    column :status do |o|
+      o.status_title
+    end
+    column :payment_and_delivery do |o|
+      "#{o.payment.try(:name)}, #{o.delivery.try(:name)}"
+    end
+    column :cost do |o|
+      "#{o.cost} грн"
+    end
+    column :updated_at
+    actions
   end
 
   show do |order|
@@ -32,6 +48,7 @@ ActiveAdmin.register Rshop::Order do
     active_admin_comments
   end
 
+  filter :status, label: I18n.t("activerecord.attributes.rshop/order.status"), as: :select, collection: Rshop::Order.status_options.invert
   filter :payment
   filter :delivery
   filter :id

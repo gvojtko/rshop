@@ -1,65 +1,27 @@
-.product-list.row itemscope="" itemtype="http://schema.org/ItemList"
+.product-list itemscope="" itemtype="http://schema.org/ItemList"
   - products.each_with_index do |product, index|
-    - if index != 0 && index.divmod(10)[1] == 0
-      - partial = db_partial(:product_list_ads)
-      - if partial.exists?
-        .form-group.text-center
-          .col-xs-12.col-sm-6
-            | #{{ partial }}
-          .col-xs-12.col-sm-6
-            | #{{ partial }}
-    - 1.times do
-      .col-xs-12.col-sm-12.col-md-6
-        .product-item itemtype="http://schema.org/Product" itemprop="itemListElement" itemscope=""
-          meta itemprop="url" content=permalink_path(product)
-          .btns-wr
-            .col-xs-3.col-sm-3.col-md-4
-            .col-xs-9.col-sm-9.col-md-8
-              .btns.hidden-xs
-                a.btn.btn-primary.btn-sm href=permalink_path(product) rel="nofollow"
-                  i.fa.fa-shopping-cart
-                  | КУПИТИ
-                a.pull-right.read-more href=permalink_path(product) rel="nofollow"
-                  | детальніше про товар
-                  i.fa.fa-angle-double-right.r
-                .clearfix
-          .h-wr.visible-md.visible-lg
-            .h3
-              a class="#{product.get_name_font}" href=permalink_path(product) itemprop="name" #{product.name}
+    .product-item itemtype="http://schema.org/Product" itemprop="itemListElement" itemscope=""
+      meta itemprop="url" content=product_path(product)
+      .hide itemtype="http://schema.org/Offer" itemprop="offers" itemscope=""
+        link itemprop="availability" content="in_stock"
+        meta itemprop="priceCurrency" content="UAH"
+        meta itemprop="price" content=product.price
 
-          .body
-            .col-xs-3.col-sm-3.col-md-4.no-pad
-              - if product.is_promotion
-                .promotions
-                  span.badge
-                    | акція
+      .h3
+        a class="#{product.get_name_font}" href=product_path(product) itemprop="name" #{product.name}
 
-              a href=permalink_path(product) rel="nofollow"
-                img.img-responsive src=product.image_url(:list) itemprop="image"
-              .visible-xs
-                a.btn.btn-primary.btn-sm href=permalink_path(product) rel="nofollow"
-                  i.fa.fa-shopping-cart
-                  | КУПИТИ
+      - if product.is_promotion
+        .promotions
+          span.badge
+            | Акция
 
-            .col-xs-9.col-sm-9.col-md-8
-              h3.visible-sm.visible-xs
-                a class="#{product.get_name_font}" href=permalink_path(product) rel="nofollow" #{product.name}
+      a href=product_path(product) rel="nofollow"
+        img.img-responsive src=product.image_url(:list) itemprop="image"
 
-              .price itemtype="http://schema.org/Offer" itemprop="offers" itemscope=""
-                link itemprop="availability" content="in_stock"
-                meta itemprop="priceCurrency" content="UAH"
-                span.value
-                  span itemprop="price" #{number_to_currency(product.price)}
-                  | &nbsp;грн.
-                /span.badge #{product.package}
+      .price
+        span.value
+          span #{number_to_currency(product.price)}
 
-              .description itemprop="description"
-                /== get_short_desc product.description
-
-              .visible-xs
-                a.pull-right.read-more href=permalink_path(product) rel="nofollow"
-                  | детальніше про товар
-                  i.fa.fa-angle-double-right.r
-                .clearfix
-            .clearfix
+        .description itemprop="description"
+      .clearfix
 
