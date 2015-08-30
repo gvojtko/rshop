@@ -18,6 +18,7 @@ class Rshop::Product < ActiveRecord::Base
   before_save :calc_ctb, :calc_ctc
 
   validates :name, :price, presence: true
+  validates :mark, :model, :category, :subcategory, presence: true
 
   default_scope -> { where(is_published: true).order("cart_count desc").order('is_promotion desc') }
 
