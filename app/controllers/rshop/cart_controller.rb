@@ -13,7 +13,7 @@ class Rshop::CartController < ::ApplicationController
     @cart.save!
     cart_counter product, qty
 
-    redirect_to root_path, flash: { success: "Товар \"#{product.name}\" (#{qty}шт.) був доданий в корзину" }
+    redirect_to root_path, flash: { success: t("rshop.cart_item.created", name: "\"#{product.name}\" (#{qty}шт.)") }
   end
 
   def delete_item
@@ -21,13 +21,13 @@ class Rshop::CartController < ::ApplicationController
     product = order_item.product
     order_item.destroy!
 
-    redirect_to request.headers['referer'], flash: { warning: "\"#{product.name}\" видалений з корзини" }
+    redirect_to request.headers['referer'], flash: { info: t("rshop.cart_item.deleted", name: "\"#{product.name}\" (#{order_item.qty}шт.)") }
   end
 
   def delete
     @cart.order_items.destroy_all
 
-    redirect_to cart_path, flash: { warning: "Корзина очищена" }
+    redirect_to cart_path, flash: { warning: ("rshop.cart.flushed") }
   end
 
   def update

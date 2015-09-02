@@ -19,6 +19,20 @@ ru:
       status_2: новый заказ
       status_3: заказ обработан
       status_4: отклоненный заказ
+    cart_item:
+      created: Товар %{name} добавлен в корзину
+      deleted: Товар %{name} удален с корзины
+      delete_title: Удалить с корзины
+    cart:
+      is_empty: Корзина пустая
+      save: Сохранить изменения
+      checkout: Оформить заказ
+      flashed: Корзина очищена
+      cost: Стоимость
+      item: Товар
+      stage_1: 1. Поиск товаров
+      stage_2: 2. Просмотр корзины
+      stage_3: 3. оформление заказа
 
   activerecord:
     models:

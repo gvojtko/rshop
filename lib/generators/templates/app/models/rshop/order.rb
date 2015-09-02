@@ -21,6 +21,7 @@ class Rshop::Order < ActiveRecord::Base
   scope :in_q, -> {where(status: STATUS_IN_Q)}
 
   def validate_saving val = true
+    self.address = Rshop::Address.new if self.address.nil?
     address.validate_saving = @validate_saving = val
   end
 

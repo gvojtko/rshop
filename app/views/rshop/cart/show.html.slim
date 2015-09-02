@@ -1,22 +1,25 @@
-.cart-show
+.cart-show.paper-panel
+  .clearfix
   h2 Корзина
 
-  .progress
-    .progress-bar.progress-bar-info style="width: 34%"
-      | 1. Пошук товарів
-    .progress-bar.progress-bar-warning style="width: 33%"
-      | 2. Перегляд корзини
+  .progress.progress-stage
+    .progress-bar.progress-stage-1 style="width: 34%"
+      = t('rshop.cart.stage_1')
+    .progress-bar.progress-stage-2 style="width: 33%"
+      = t('rshop.cart.stage_2')
       .pointer
-    .progress-bar.progress-bar-empty.progress-bar-striped.active style="width: 33%"
-      | 3. Оформлення замовлення
+    .progress-bar.progress-stage-3 style="width: 33%"
+      = t('rshop.cart.stage_3')
 
   - unless @cart.nil?
     = form_for @cart, url: cart_path, method: :patch do |f|
       table.table
         thead
           tr
-            th товар
-            th вартість
+            th
+              = t('rshop.cart.item')
+            th
+              = t('rshop.cart.cost')
             th &nbsp;
         tbody
           - @cart.order_items.each do |oi|
@@ -31,44 +34,41 @@
                     a href=product_path(product)
                       span.name #{product.name}
                     br
-                    a href=brand_path(product.brand)
-                      span.brand #{product.brand.try(:name)}
-                    br
-                    /span.category #{product.category.try(:name).downcase}
-
+                    - if product.brand
+                      a.brand href=brand_path(product.brand)
+                        span #{product.brand.try(:name)}
+                      br
                 td.qty
-                  span
-                    | #{number_to_currency(product.price)} x
+                  span.operation #{number_to_currency(product.price)} x
                   = oif.number_field :qty, class: "form-control", min: 1, max: 100
-                  span
-                    | = #{number_to_currency(oif.object.cost)} грн.
+                  span.operation
+                    | шт. =
+                  span #{number_to_currency(oif.object.cost)}
                 td.remove-item-td
-                  a.remove-item href=cart_item_path(oi) data-method="delete"
-                    i.fa.fa-times-circle
-                    | delete
+                  a.remove-item href=cart_item_path(oi) data-method="delete" title=t('rshop.cart_item.delete_title')
+                    i.fa.fa-trash
           tr
             td colspan="3"
-              h3.pull-right #{number_to_currency(@cart.cost)} грн.
+              h3.pull-right #{number_to_currency(@cart.cost)}
         tfoot
           tr
-            td colspan="3"
+            td.has-flat-ts colspan="3"
               .pull-left
-                /a href=permalink_path(@cart.order_items.last.product.category)
+              /a href=permalink_path(@cart.order_items.last.product.category)
                   i.fa.fa-reply
-                  | повернутися в магазин
+                  | <-
               .pull-right
-                button.btn.btn-primary type="submit"
-                  i.fa.fa-refresh
-                  | Зберегти зміни
-                button.btn.btn-primary.m-l-10 type="submit" name="buy_action"
-                  i.fa.fa-shopping-cart
-                  | ОФОРМИТИ ЗАМОВЛЕННЯ
+                button.btn.btn-success type="submit"
+                  i.fa.l.fa-refresh.flat-ts-lb-success
+                  span #{t('rshop.cart.save')}
+                | &nbsp;&nbsp;
+                button.btn.btn-success type="submit" name="buy_action"
+                  i.fa.l.fa-shopping-cart.flat-ts-lb-success
+                  span #{t('rshop.cart.checkout')}
 
   - else
-    | Корзина порожня
+    span #{t('rshop.cart.is_empty')}
     br
     br
     br
     .clearfix
-
-
