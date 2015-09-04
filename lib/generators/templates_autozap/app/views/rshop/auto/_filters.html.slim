@@ -1,0 +1,18 @@
+form.search-form ng-controller="filtersController" method="get" action=filter_path
+  .form-group
+    select.form-control name="mark" ng-model="mark" ng-options="mark.name for mark in marks track by mark.name"
+      option value="" Выберите марку
+  .form-group
+    select.form-control name="model" ng-model="model" ng-disabled="!mark" disabled="disabled" ng-options="model.name for model in models track by model.name"
+      option value="" Выберите модель
+  .form-group
+    select.form-control name="category" ng-model="category" ng-disabled="!model" disabled="disabled" ng-options="category.name for category in categories track by category.name"
+      option value="" Выберите категорию
+  .form-group
+    select.form-control name="subcategory" ng-model="subcategory" ng-disabled="!category" disabled="disabled" ng-options="subcategory.name for subcategory in subcategories track by subcategory.name"
+      option value="" Выберите подкатегорию
+  .text-center
+    button.btn.btn-info.btn-sm type="submit" ng-disabled="!mark" disabled="disabled"
+      i.fa.l.fa-search
+      span Поиск
+  input type="hidden" name="sort" value="#{params[:sort] ? params[:sort] : 'name asc'}"

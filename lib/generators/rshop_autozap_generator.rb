@@ -21,4 +21,10 @@ class RshopAutozapGenerator < Rails::Generators::Base
       copy_file "app/admin/rshop/#{name}.rb"
     end
   end
+
+  def create_views_files
+    %w(_filters.html.slim).each do |name|
+      copy_file "app/views/rshop/auto/#{name}"
+    end
+  end
 end

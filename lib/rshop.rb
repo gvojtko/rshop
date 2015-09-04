@@ -2,6 +2,7 @@ require "rshop/version"
 
 module Rshop
   autoload :ApplicationController, 'rshop/application_controller'
+  autoload :AutoApplicationController, 'rshop/auto_application_controller'
 
   class Engine < Rails::Engine
   end

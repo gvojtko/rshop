@@ -24,6 +24,7 @@ ru:
       deleted: Товар %{name} удален с корзины
       delete_title: Удалить с корзины
     cart:
+      view_title: Просмотреть корзину
       is_empty: Корзина пустая
       save: Сохранить изменения
       checkout: Оформить заказ
