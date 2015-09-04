@@ -1,0 +1,70 @@
+ru:
+  activerecord:
+    models:
+      rshop/auto_mark:
+        one: Авто марка
+        few: Авто марки
+        many: Авто марок
+        other: Авто марки
+
+      rshop/auto_model:
+        one: Авто модель
+        few: Авто модели
+        many: Авто моделей
+        other: Авто модели
+
+      rshop/auto_category:
+        one: Авто категория
+        few: Авто категории
+        many: Авто категорий
+        other: Авто категории
+
+      rshop/auto_subcategory:
+        one: Авто подкатегория
+        few: Авто подкатегории
+        many: Авто подкатегорий
+        other: Авто подкатегории
+
+    attributes:
+      rshop/auto_mark:
+        name: Название
+        n: Приоритет
+        slug: Url-ключ
+        image: Изображение
+        remove_image: Удалить изображение
+        created_at: Создан
+        updated_at: Редактирован
+
+      rshop/auto_model:
+        mark: Марка авто
+        name: Название
+        n: Приоритет
+        slug: Url-ключ
+        image: Изображение
+        remove_image: Удалить изображение
+        created_at: Создан
+        updated_at: Редактирован
+
+      rshop/auto_category:
+        name: Название
+        n: Приоритет
+        slug: Url-ключ
+        image: Изображение
+        remove_image: Удалить изображение
+        created_at: Создан
+        updated_at: Редактирован
+
+      rshop/auto_subcategory:
+        name: Название
+        n: Приоритет
+        slug: Url-ключ
+        image: Изображение
+        remove_image: Удалить изображение
+        created_at: Создан
+        updated_at: Редактирован
+
+      rshop/product:
+        mark: Марка
+        model: Модель
+        category: Категория
+        subcategory: Подкатегория
