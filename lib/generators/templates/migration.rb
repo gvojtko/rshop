@@ -5,8 +5,10 @@ class CreateRshopTables < ActiveRecord::Migration
       t.belongs_to :rshop_brand, index: true
 
       t.string :name
+      t.string :admin_comment
+      t.string :xls_code
       t.string :slug, index: true
-      t.integer :code
+      t.string :code
       t.decimal :price, :precision => 6, :scale => 2
 
       t.text :description

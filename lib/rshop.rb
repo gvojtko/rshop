@@ -10,6 +10,12 @@ module Rshop
   class Router
     def self.routes router
       router.instance_exec do
+        namespace :ajax do
+          namespace :rshop do
+            get 'products/search' => 'products#search', as: :products_search
+          end
+        end
+
         scope :cart do
           post 'items' => 'rshop/cart#create_item', as: :cart_items
           delete 'items/:id' => 'rshop/cart#delete_item', as: :cart_item

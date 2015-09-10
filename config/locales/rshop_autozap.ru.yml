@@ -1,4 +1,13 @@
 ru:
+  number:
+    currency:
+      format:
+        unit: 'грн'
+        delimiter: ' '
+        separator: '.'
+        precision: 2
+        format: '%n <span class="currency">%u</span>'
+
   activerecord:
     models:
       rshop/auto_mark:
@@ -64,7 +73,16 @@ ru:
         updated_at: Редактирован
 
       rshop/product:
+        admin_comment: Комент
+        xls_code: Идентификатор импорта
         mark: Марка
         model: Модель
         category: Категория
         subcategory: Подкатегория
+        album: Альбом
+        brand: Бренд
+        views_count: Просмотры
+        sold_count: Кол-во продаж
+        cart_count: Кол-во в корзине
+        ctb: в корзине / продажи
+        ctc: показы / в корзине
