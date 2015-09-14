@@ -3,6 +3,8 @@ require "rshop/version"
 module Rshop
   autoload :ApplicationController, 'rshop/application_controller'
   autoload :AutoApplicationController, 'rshop/auto_application_controller'
+  autoload :PriceLoggableProduct, 'rshop/price_loggable_product'
+  autoload :PriceAdjustableProduct, 'rshop/price_adjustable_product'
 
   class Engine < Rails::Engine
   end
