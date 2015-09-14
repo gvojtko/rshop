@@ -3,6 +3,7 @@ class CreateRshopAutozapTables < ActiveRecord::Migration
     create_table :rshop_price_logs do |t|
       t.decimal :price, :precision => 6, :scale => 2, default: 0
       t.belongs_to :rshop_product, index: true
+      t.boolean :in_stock
 
       t.timestamps null: false
     end
