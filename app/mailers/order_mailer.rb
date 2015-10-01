@@ -8,6 +8,6 @@ class OrderMailer < ActionMailer::Base
   def feedback(feedback)
     @feedback = feedback
     admin_emails = AdminUser.pluck(:email)
-    mail(to: 'mrriddick7@gmail.com', subject: "Вопрос от пользователя #{feedback.username}")
+    mail(to: admin_emails, subject: "Вопрос от пользователя #{feedback.username}")
   end
 end

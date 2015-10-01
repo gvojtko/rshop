@@ -1,6 +1,6 @@
 class Ajax::Rshop::ProductsController < ApplicationController
   def search
-    products = Rshop::Product.where("name LIKE ?", "%#{params[:q]}%").limit(10)
+    products = Rshop::Product.frontend.where("name LIKE ?", "%#{params[:q]}%").limit(10)
     arr = products.map{|product| {id: product.name, text: product.name} }
 
     render text: {items: arr, page: current_page}.to_json
