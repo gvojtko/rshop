@@ -10,7 +10,7 @@ class RshopViewsGenerator < Rails::Generators::Base
       copy_file "app/views/rshop/cart/#{name}"
     end
 
-    %w(show.html.slim).each do |name|
+    %w(form.html.slim ty.html.slim).each do |name|
       copy_file "app/views/rshop/checkout/#{name}"
     end
   end

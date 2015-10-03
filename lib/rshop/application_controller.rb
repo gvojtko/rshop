@@ -4,11 +4,15 @@ module Rshop
       base.class_eval do
         # extend Base
         include ClassMethods
+        helper_method :cart_view
         before_filter :setup_cart
       end
     end
 
     module ClassMethods
+      def cart_view
+        get_cart || Rshop::Order.new(user: current_user)
+      end
       # cart
       def get_cart
         id = get_cart_id

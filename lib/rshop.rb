@@ -5,6 +5,7 @@ module Rshop
   autoload :AutoApplicationController, 'rshop/auto_application_controller'
   autoload :PriceLoggableProduct, 'rshop/price_loggable_product'
   autoload :PriceAdjustableProduct, 'rshop/price_adjustable_product'
+  autoload :ProductBase, 'rshop/models/product_base'
 
   class Engine < Rails::Engine
   end
